@@ -1,0 +1,6 @@
+name: Survival
+version: '${project.version}'
+main: net.extraherz.survival.Survival
+api-version: 1.19
+authors: [ Extraherz ]
+description: Survival Addons for Residence Survival Server
