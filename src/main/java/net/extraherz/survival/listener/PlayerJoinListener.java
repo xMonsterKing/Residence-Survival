@@ -25,6 +25,10 @@ public class PlayerJoinListener implements Listener {
             Survival.getInstance().getPlayerDataYaml().addJoins(player.getUniqueId(), 1);
         }
 
+        if (!Survival.getInstance().getSettingsDataYaml().playerExists(player.getUniqueId()) && !player.hasPermission("booster.particles")) {
+            Survival.getInstance().getSettingsDataYaml().createPlayer(player.getUniqueId());
+        }
+
         Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> {
             player.sendActionBar(mm.deserialize("<!i><gradient:#9c0505:#f72525>" + Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "</gradient>"));
         }, 0L, 20L);

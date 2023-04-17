@@ -1,4 +1,4 @@
-package net.extraherz.survival.utils;
+package net.extraherz.survival.config;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -6,19 +6,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-public class PlayerDataYaml {
+public class SettingsDataYaml {
 
     private final File file;
     private final YamlConfiguration yamlConfiguration;
 
-    public PlayerDataYaml() {
+    public SettingsDataYaml() {
         File dir = new File("./plugins/Survival");
 
         if (!dir.exists()) {
             dir.mkdirs();
         }
 
-        file = new File(dir, "playerdata.yml");
+        file = new File(dir, "settings.yml");
 
         if (!file.exists()) {
             try {
@@ -32,27 +32,27 @@ public class PlayerDataYaml {
     }
 
     public boolean playerExists(UUID uuid) {
-        return yamlConfiguration.contains(uuid + ".Joins");
+        return yamlConfiguration.contains("Players." + uuid + ".Particles");
     }
 
     public void createPlayer(UUID uuid) {
         if (!playerExists(uuid)) {
-            yamlConfiguration.set(uuid + ".Joins", 1);
+            yamlConfiguration.set("Players." + uuid + ".Particles", true);
             save();
         }
     }
 
-    public int getJoins(UUID uuid) {
-        return yamlConfiguration.getInt(uuid + ".Joins");
+    public boolean particleState(UUID uuid) {
+        return yamlConfiguration.getBoolean("Players." + uuid + ".Particles");
     }
 
-    public void addJoins(UUID uuid, int value) {
+    public void setParticles(UUID uuid, boolean value) {
         if (playerExists(uuid)) {
-            yamlConfiguration.set(uuid + ".Joins", getJoins(uuid) + value);
+            yamlConfiguration.set("Players." + uuid + ".Particles", value);
             save();
         } else {
             createPlayer(uuid);
-            addJoins(uuid, value);
+            setParticles(uuid, value);
         }
     }
 

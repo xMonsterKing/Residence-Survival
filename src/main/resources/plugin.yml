@@ -4,3 +4,10 @@ main: net.extraherz.survival.Survival
 api-version: 1.19
 authors: [ Extraherz ]
 description: Survival Addons for Residence Survival Server
+
+commands:
+  particle:
+    aliases:
+      - partikel#
+      - effects
+      - effekte
