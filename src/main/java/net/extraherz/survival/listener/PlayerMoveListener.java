@@ -18,7 +18,7 @@ public class PlayerMoveListener implements Listener {
 
         if (Survival.getInstance().getSettingsDataYaml().particleState(player.getUniqueId()) && player.hasPermission("booster.particles")) {
             if (event.getFrom().getX() != event.getTo().getX() || event.getFrom().getY() != event.getTo().getY() || event.getFrom().getZ() != event.getTo().getZ()) {
-                player.getWorld().spawnParticle(Particle.REDSTONE, location, 3, 0, 0, 0.2D, new Particle.DustOptions(Color.fromRGB(232, 39, 197), 1));
+                player.getWorld().spawnParticle(Particle.REDSTONE, location, 3, 0, 0, 0.2D, new Particle.DustOptions(Color.fromRGB(255, 85, 255), 1));
             }
         }
     }
