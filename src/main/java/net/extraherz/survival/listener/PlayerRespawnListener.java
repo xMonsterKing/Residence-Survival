@@ -26,14 +26,4 @@ public class PlayerRespawnListener implements Listener {
         }, 0L, 20L);
     }
 
-    @EventHandler
-    public void onInvClick(InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
-        // Player clicks on Inventory. Add to hashmap and checke if something is inside the hashmap...
-        // then check if player is in the specific inventory and
-        if (player.getOpenInventory().title().equals()) {
-            player.getOpenInventory().setItem(1, new ItemStack(Material.ACACIA_BUTTON));
-        }
-    }
-
 }
