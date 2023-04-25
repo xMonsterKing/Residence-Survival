@@ -15,7 +15,7 @@ public class PlayerQuitListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         final Player player = event.getPlayer();
 
-        event.quitMessage(mm.deserialize("<!i><#990f02>" + player.getName() + " <#ffffff>verlässt den Residence Minecraft Server!"));
+        event.quitMessage(mm.deserialize("<!i><#990f02>" + player.getName() + " <#ffffff>verlässt den Nightloft Minecraft Server!"));
         Utils.scheduler.cancelTask(Utils.onlineTimeTask.getTaskId());
     }
 

@@ -18,10 +18,10 @@ public class PlayerJoinListener implements Listener {
         final Player player = event.getPlayer();
 
         if (!Survival.getInstance().getPlayerDataYaml().playerExists(player.getUniqueId())) {
-            event.joinMessage(mm.deserialize("<!i><#990f02>" + player.getName() + " <#ffffff>hat den Residence Minecraft Server zum ersten mal betreten, herzlich Willkommen!"));
+            event.joinMessage(mm.deserialize("<!i><#990f02>" + player.getName() + " <#ffffff>hat den Nightloft Minecraft Server zum ersten mal betreten, herzlich Willkommen!"));
             Survival.getInstance().getPlayerDataYaml().createPlayer(player.getUniqueId());
         } else {
-            event.joinMessage(mm.deserialize("<!i><#ffffff>Hey <#990f02>" + player.getName() + "<#ffffff>, willkommen zurück auf dem Residence Minecraft Server!"));
+            event.joinMessage(mm.deserialize("<!i><#ffffff>Hey <#990f02>" + player.getName() + "<#ffffff>, willkommen zurück auf dem Nightloft Minecraft Server!"));
             Survival.getInstance().getPlayerDataYaml().addJoins(player.getUniqueId(), 1);
         }
 
