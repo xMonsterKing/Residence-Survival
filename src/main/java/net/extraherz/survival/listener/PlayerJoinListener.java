@@ -29,9 +29,7 @@ public class PlayerJoinListener implements Listener {
             Survival.getInstance().getSettingsDataYaml().createPlayer(player.getUniqueId());
         }
 
-        Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> {
-            player.sendActionBar(mm.deserialize("<!i><gradient:#9c0505:#f72525>" + Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "</gradient>"));
-        }, 0L, 20L);
+        Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> player.sendActionBar(mm.deserialize("<!i><gradient:#9c0505:#f72525>" + Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "</gradient>")), 0L, 20L);
     }
 
 }
