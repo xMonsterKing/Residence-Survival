@@ -7,7 +7,10 @@ description: Survival Addons for Residence Survival Server
 
 commands:
   particle:
+    description: Toggle the particle effects while walking
     aliases:
       - partikel
       - effects
       - effekte
+  playtime:
+    description: Shows you current playtime, or reloads the playtime animation
