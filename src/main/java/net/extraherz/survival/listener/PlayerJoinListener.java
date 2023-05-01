@@ -18,10 +18,10 @@ public class PlayerJoinListener implements Listener {
         final Player player = event.getPlayer();
 
         if (!Survival.getInstance().getPlayerDataYaml().playerExists(player.getUniqueId())) {
-            event.joinMessage(mm.deserialize("<!i><#990f02>" + player.getName() + " <#ffffff>hat den Nightloft Minecraft Server zum ersten mal betreten, herzlich Willkommen!"));
+            event.joinMessage(mm.deserialize("<!i><#5555FF>" + player.getName() + " <#ffffff>hat den Nightloft Minecraft Server zum ersten mal betreten, herzlich Willkommen!"));
             Survival.getInstance().getPlayerDataYaml().createPlayer(player.getUniqueId());
         } else {
-            event.joinMessage(mm.deserialize("<!i><#ffffff>Hey <#990f02>" + player.getName() + "<#ffffff>, willkommen zurück auf dem Nightloft Minecraft Server!"));
+            event.joinMessage(mm.deserialize("<!i><#ffffff>Hey <#5555FF>" + player.getName() + "<#ffffff>, willkommen zurück auf dem Nightloft Minecraft Server!"));
             Survival.getInstance().getPlayerDataYaml().addJoins(player.getUniqueId(), 1);
         }
 
@@ -29,7 +29,7 @@ public class PlayerJoinListener implements Listener {
             Survival.getInstance().getSettingsDataYaml().createPlayer(player.getUniqueId());
         }
 
-        Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> player.sendActionBar(mm.deserialize("<!i><gradient:#9c0505:#f72525>" + Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "</gradient>")), 0L, 20L);
+        Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> player.sendActionBar(mm.deserialize("<!i><gradient:#542391:#9163ca>" + Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "</gradient>")), 0L, 20L);
     }
 
 }
