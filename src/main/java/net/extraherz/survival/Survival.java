@@ -3,6 +3,7 @@ package net.extraherz.survival;
 import lombok.SneakyThrows;
 import net.extraherz.survival.commands.ParticleCommand;
 import net.extraherz.survival.commands.PlayTimeCommand;
+import net.extraherz.survival.commands.RestartCommand;
 import net.extraherz.survival.config.PlayerDataYaml;
 import net.extraherz.survival.config.SettingsDataYaml;
 import net.extraherz.survival.tabcompletion.ParticleTab;
@@ -52,6 +53,7 @@ public final class Survival extends JavaPlugin {
         getCommand("particle").setTabCompleter(new ParticleTab());
         getCommand("playtime").setExecutor(new PlayTimeCommand());
         getCommand("playtime").setTabCompleter(new PlayTimeTab());
+        getCommand("restart").setExecutor(new RestartCommand());
     }
 
     public static Survival getInstance() {
