@@ -1,6 +1,7 @@
 package net.extraherz.survival.commands;
 
 import net.extraherz.survival.Survival;
+import net.extraherz.survival.utils.Utils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,7 +22,7 @@ public class ParticleCommand implements CommandExecutor {
         }
 
         if (command.getName().equalsIgnoreCase("particle")) {
-            if (!player.hasPermission("booster.particles")) {
+            if (!Utils.isPlayerInGroup(player, "booster")) {
                 player.sendMessage(mm.deserialize("<!i><white>Booste den Server, um auch Zugriff auf die Partikeleffekte zu erhalten."));
             } else {
                 switch (args.length) {
