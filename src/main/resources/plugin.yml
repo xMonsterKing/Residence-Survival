@@ -14,4 +14,4 @@ commands:
       - effekte
   playtime:
     description: Shows you current playtime, or reloads the playtime animation
-  restart:
+  nightrestart:

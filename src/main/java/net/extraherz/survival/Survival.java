@@ -53,7 +53,7 @@ public final class Survival extends JavaPlugin {
         getCommand("particle").setTabCompleter(new ParticleTab());
         getCommand("playtime").setExecutor(new PlayTimeCommand());
         getCommand("playtime").setTabCompleter(new PlayTimeTab());
-        getCommand("restart").setExecutor(new RestartCommand());
+        getCommand("nightrestart").setExecutor(new RestartCommand());
     }
 
     public static Survival getInstance() {

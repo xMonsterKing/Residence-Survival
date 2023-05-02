@@ -22,10 +22,12 @@ public class RestartCommand implements CommandExecutor {
             return true;
         }
 
-        if (command.getName().equalsIgnoreCase("restart")) {
-            if (Utils.isPlayerInGroup(player, "queen") || Utils.isPlayerInGroup(player, "xi")) {
+        if (command.getName().equalsIgnoreCase("nightrestart")) {
+            if (!Utils.isPlayerInGroup(player, "queen") || !Utils.isPlayerInGroup(player, "xi") || !player.getName().equals("Extraherz")) {
+                player.sendMessage(mm.deserialize("<!i><red>Dazu hast du keine Rechte."));
+            } else {
                 if (args.length != 1) {
-                    sender.sendMessage(mm.deserialize("<!i><white>Nutze: <blue>/playtime <minutes>"));
+                    player.sendMessage(mm.deserialize("<!i><white>Nutze: <blue>/nightrestart <minutes>"));
                     return true;
                 }
 
@@ -33,14 +35,14 @@ public class RestartCommand implements CommandExecutor {
                 try {
                     restartDelay = Integer.parseInt(args[0]);
                 } catch (NumberFormatException e) {
-                    sender.sendMessage(mm.deserialize("<!i><red>Ungültige Zahl: " + args[0]));
+                    player.sendMessage(mm.deserialize("<!i><red>Ungültige Zahl: " + args[0]));
                     return true;
                 }
-
+                Bukkit.broadcast(mm.deserialize("<!i><gold>[<dark_red>Broadcast<gold>] <green>Der Server startet in " + restartDelay + " Minute/n neu."));
                 Bukkit.getScheduler().runTaskLater(Survival.getInstance(), () -> {
                     // Kick all players 1 second before shutdown
                     for (Player players : Bukkit.getOnlinePlayers()) {
-                        players.kick(mm.deserialize("<!i><red>Der Server startet gerade neu, versuche in wenigen Minuten zu rejoinen."));
+                        players.kick(mm.deserialize("<!i><red>Der Server startet gerade neu, versuche in wenigen Sekunden zu rejoinen."));
                     }
 
                     Bukkit.getScheduler().runTaskLater(Survival.getInstance(), () -> {
@@ -63,12 +65,12 @@ public class RestartCommand implements CommandExecutor {
                 // Schedule last 5 seconds message
                 if (restartDelay > 0) {
                     Bukkit.getScheduler().runTaskLater(Survival.getInstance(), () -> {
-                        Bukkit.broadcast(mm.deserialize("<!i><gold>[<dark_red>Broadcast<gold>] <green>Der Server startet in 5 Sekunden neu."));
+                        Bukkit.broadcast(mm.deserialize("<!i><gold>[<dark_red>Broadcast<gold>] <green>Der Server startet in 4 Sekunden neu."));
                     }, restartDelay * 60 * 20L - 100L);
                 }
             }
         }
 
-        return true;
+        return false;
     }
 }
