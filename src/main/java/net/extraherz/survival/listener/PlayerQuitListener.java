@@ -1,5 +1,6 @@
 package net.extraherz.survival.listener;
 
+import net.extraherz.survival.utils.Messages;
 import net.extraherz.survival.utils.Utils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.entity.Player;
@@ -15,7 +16,7 @@ public class PlayerQuitListener implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         final Player player = event.getPlayer();
 
-        event.quitMessage(mm.deserialize("<!i><#5555FF>" + player.getName() + " <#ffffff>verlässt den Nightloft Minecraft Server!"));
+        event.quitMessage(mm.deserialize(Messages.playerDisconnect.replaceAll("%player%", player.getName())));
         Utils.scheduler.cancelTask(Utils.onlineTimeTask.getTaskId());
     }
 

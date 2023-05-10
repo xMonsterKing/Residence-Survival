@@ -1,6 +1,7 @@
 package net.extraherz.survival.listener;
 
 import net.extraherz.survival.Survival;
+import net.extraherz.survival.utils.Messages;
 import net.extraherz.survival.utils.Utils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Statistic;
@@ -17,7 +18,7 @@ public class PlayerRespawnListener implements Listener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         final Player player = event.getPlayer();
 
-        Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> player.sendActionBar(mm.deserialize("<!i><gradient:#542391:#9163ca>" + Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "</gradient>")), 0L, 20L);
+        Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> player.sendActionBar(mm.deserialize(Messages.playTimeActionbar.replaceAll("%playtime%", Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE))))), 0L, 20L);
     }
 
 }

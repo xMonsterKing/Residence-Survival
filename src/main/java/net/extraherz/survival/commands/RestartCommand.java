@@ -1,6 +1,7 @@
 package net.extraherz.survival.commands;
 
 import net.extraherz.survival.Survival;
+import net.extraherz.survival.utils.Messages;
 import net.extraherz.survival.utils.Utils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
@@ -10,6 +11,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.UUID;
+
 public class RestartCommand implements CommandExecutor {
 
     private final MiniMessage mm = MiniMessage.miniMessage();
@@ -17,17 +22,17 @@ public class RestartCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        if (!(sender instanceof final Player player)) {
-            sender.sendMessage(mm.deserialize("<!i>Nur als Spieler ausführbar"));
-            return true;
-        }
+        final Player player = (Player) sender;
+
+        var groups = Set.of("queen", "xi");
+        var players = Set.of(UUID.fromString("1e001e65-c775-46ee-abd6-be8f70f1218a"), UUID.fromString("49d9cfe2-8ef6-4b3f-9ec9-fff38914b9f9"), UUID.fromString("2def97cf-a44e-415d-b69a-76b3f7ffe217"));
 
         if (command.getName().equalsIgnoreCase("nightrestart")) {
-            if (!Utils.isPlayerInGroup(player, "queen") || !Utils.isPlayerInGroup(player, "xi") || !player.getName().equals("Extraherz")) {
-                player.sendMessage(mm.deserialize("<!i><red>Dazu hast du keine Rechte."));
+            if (!groups.contains(Utils.getPlayerGroup(player)) && !players.contains(player.getUniqueId())) {
+                player.sendMessage(mm.deserialize(Messages.noPermission));
             } else {
                 if (args.length != 1) {
-                    player.sendMessage(mm.deserialize("<!i><white>Nutze: <blue>/nightrestart <minutes>"));
+                    player.sendMessage(mm.deserialize(Messages.restartCommand));
                     return true;
                 }
 
@@ -38,11 +43,11 @@ public class RestartCommand implements CommandExecutor {
                     player.sendMessage(mm.deserialize("<!i><red>Ungültige Zahl: " + args[0]));
                     return true;
                 }
-                Bukkit.broadcast(mm.deserialize("<!i><gold>[<dark_red>Broadcast<gold>] <green>Der Server startet in " + restartDelay + " Minute/n neu."));
+                Bukkit.broadcast(mm.deserialize(Messages.startRestartTimer));
                 Bukkit.getScheduler().runTaskLater(Survival.getInstance(), () -> {
                     // Kick all players 1 second before shutdown
-                    for (Player players : Bukkit.getOnlinePlayers()) {
-                        players.kick(mm.deserialize("<!i><red>Der Server startet gerade neu, versuche in wenigen Sekunden zu rejoinen."));
+                    for (Player targets : Bukkit.getOnlinePlayers()) {
+                        targets.kick(mm.deserialize(Messages.playerKick));
                     }
 
                     Bukkit.getScheduler().runTaskLater(Survival.getInstance(), () -> {
@@ -57,7 +62,7 @@ public class RestartCommand implements CommandExecutor {
                     if (restartDelay > timerMinute) {
                         int secondsLeft = (restartDelay - timerMinute) * 60;
                         Bukkit.getScheduler().runTaskLater(Survival.getInstance(), () -> {
-                            Bukkit.broadcast(mm.deserialize("<!i><gold>[<dark_red>Broadcast<gold>] <green>Der Server startet in " + timerMinute + " Minute/n neu."));
+                            Bukkit.broadcast(mm.deserialize(Messages.timerLastMinutes.replaceAll("%delay%", Arrays.toString(timerMinutes))));
                         }, secondsLeft * 20L - 20L);
                     }
                 }
@@ -65,7 +70,7 @@ public class RestartCommand implements CommandExecutor {
                 // Schedule last 5 seconds message
                 if (restartDelay > 0) {
                     Bukkit.getScheduler().runTaskLater(Survival.getInstance(), () -> {
-                        Bukkit.broadcast(mm.deserialize("<!i><gold>[<dark_red>Broadcast<gold>] <green>Der Server startet in 4 Sekunden neu."));
+                        Bukkit.broadcast(mm.deserialize(Messages.timerLastFourSeconds));
                     }, restartDelay * 60 * 20L - 100L);
                 }
             }

@@ -1,6 +1,7 @@
 package net.extraherz.survival.commands;
 
 import net.extraherz.survival.Survival;
+import net.extraherz.survival.utils.Messages;
 import net.extraherz.survival.utils.Utils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Statistic;
@@ -25,12 +26,12 @@ public class PlayTimeCommand implements CommandExecutor {
         if (command.getName().equalsIgnoreCase("playtime")) {
             switch (args.length) {
                 case 0 -> {
-                    player.sendMessage(mm.deserialize("<!i><white>Deine aktuelle Spielzeit beträgt: <#542391>" + Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE))));
+                    player.sendMessage(mm.deserialize(Messages.actualPlayTime.replaceAll("%playtime%", Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE)))));
                 }
                 case 1 -> {
                     if (args[0].equalsIgnoreCase("reload")) {
                         Utils.scheduler.cancelTask(Utils.onlineTimeTask.getTaskId());
-                        Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> player.sendActionBar(mm.deserialize("<!i><gradient:#542391:#9163ca>" + Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "</gradient>")), 0L, 20L);
+                        Utils.onlineTimeTask = Utils.scheduler.runTaskTimer(Survival.getInstance(), () -> player.sendActionBar(mm.deserialize(Messages.playTimeActionbar.replaceAll("%playtime%", Utils.tickToTime(player.getStatistic(Statistic.PLAY_ONE_MINUTE))))), 0L, 20L);
                         player.sendMessage(mm.deserialize("<!i><red>Playtime wurde erfolgreich neu geladen!"));
                     }
                 }

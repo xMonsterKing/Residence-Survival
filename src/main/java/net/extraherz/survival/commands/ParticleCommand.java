@@ -1,6 +1,7 @@
 package net.extraherz.survival.commands;
 
 import net.extraherz.survival.Survival;
+import net.extraherz.survival.utils.Messages;
 import net.extraherz.survival.utils.Utils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
@@ -23,28 +24,28 @@ public class ParticleCommand implements CommandExecutor {
 
         if (command.getName().equalsIgnoreCase("particle")) {
             if (!Utils.isPlayerInGroup(player, "booster")) {
-                player.sendMessage(mm.deserialize("<!i><white>Booste den Server, um auch Zugriff auf die Partikeleffekte zu erhalten."));
+                player.sendMessage(mm.deserialize(Messages.particleBoosterRank));
             } else {
                 switch (args.length) {
                     case 0 -> {
-                        player.sendMessage(mm.deserialize("<!i><white>Nutze: <#990f02>/particle on/off"));
+                        player.sendMessage(mm.deserialize(Messages.particleCommand));
                     }
                     case 1 -> {
                         switch (args[0]) {
                             case "on" -> {
                                 if (Survival.getInstance().getSettingsDataYaml().particleState(player.getUniqueId())) {
-                                    player.sendMessage(mm.deserialize("<!i><white>Deine Partikel sind schon <green>eingeschaltet."));
+                                    player.sendMessage(mm.deserialize(Messages.particleCurrentlyOnToOn));
                                 } else {
                                     Survival.getInstance().getSettingsDataYaml().setParticles(player.getUniqueId(), true);
-                                    player.sendMessage(mm.deserialize("<!i><white>Deine Partikel wurden erfolgreich <green>eingeschaltet"));
+                                    player.sendMessage(mm.deserialize(Messages.particleCurrentlyOnToOff));
                                 }
                             }
                             case "off" -> {
                                 if (!Survival.getInstance().getSettingsDataYaml().particleState(player.getUniqueId())) {
-                                    player.sendMessage(mm.deserialize("<!i><white>Deine Partikel sind schon <#990f02>ausgeschaltet."));
+                                    player.sendMessage(mm.deserialize(Messages.particleCurrentlyOffToOff));
                                 } else {
                                     Survival.getInstance().getSettingsDataYaml().setParticles(player.getUniqueId(), false);
-                                    player.sendMessage(mm.deserialize("<!i><white>Deine Partikel wurden erfolgreich <#990f02>ausgeschaltet"));
+                                    player.sendMessage(mm.deserialize(Messages.particleCurrentlyOffToOn));
                                 }
                             }
                         }

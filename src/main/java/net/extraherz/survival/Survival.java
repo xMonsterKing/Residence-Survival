@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import net.extraherz.survival.commands.ParticleCommand;
 import net.extraherz.survival.commands.PlayTimeCommand;
 import net.extraherz.survival.commands.RestartCommand;
+import net.extraherz.survival.config.Config;
 import net.extraherz.survival.config.PlayerDataYaml;
 import net.extraherz.survival.config.SettingsDataYaml;
 import net.extraherz.survival.tabcompletion.ParticleTab;
@@ -28,6 +29,9 @@ public final class Survival extends JavaPlugin {
     public void onEnable() {
         playerDataYaml = new PlayerDataYaml();
         settingsDataYaml = new SettingsDataYaml();
+        Config config = new Config();
+        config.setStandard();
+        config.readData();
         loadListeners(this, "net.extraherz.survival.listener");
         loadCommands();
     }
